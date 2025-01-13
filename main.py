@@ -286,7 +286,10 @@ try:
                     for p in Players:
                         if p["Subject"] == Requests.puuid:
                             allyTeam = p["TeamID"]
+                            break
                     for player in Players:
+                        # used to change player name color
+                        already_seen = False
                         status.update(f"Loading players... [{playersLoaded}/{len(Players)}]")
                         playersLoaded += 1
 
@@ -314,6 +317,8 @@ try:
                                                     "agent": curr_player_stat["agent"],
                                                     "time_diff": time.time() - curr_player_stat["epoch"]
                                                 })
+                                        # used to change player name color
+                                        already_seen = True
                                     else:
                                         if player["TeamID"] == allyTeam:
                                             team_string = "your"
@@ -326,6 +331,8 @@ try:
                                                     "agent": curr_player_stat["agent"],
                                                     "time_diff": time.time() - curr_player_stat["epoch"]
                                                 })
+                                        # used to change player name color
+                                        already_seen = True
 
                         party_icon = ''
                         # set party premade icon
@@ -365,11 +372,18 @@ try:
                         if player["PlayerIdentity"]["Incognito"]:
                             Namecolor = colors.get_color_from_team(player["TeamID"],
                                                             names[player["Subject"]],
-                                                            player["Subject"], Requests.puuid, agent=player["CharacterID"], party_members=partyMembersList)
+                                                            player["Subject"],
+                                                            Requests.puuid,
+                                                            agent=player["CharacterID"],
+                                                            party_members=partyMembersList,
+                                                            played_before=already_seen)
                         else:
                             Namecolor = colors.get_color_from_team(player["TeamID"],
                                                             names[player["Subject"]],
-                                                            player["Subject"], Requests.puuid, party_members=partyMembersList)
+                                                            player["Subject"],
+                                                            Requests.puuid,
+                                                            party_members=partyMembersList,
+                                                            played_before=already_seen)
                         if lastTeam != player["TeamID"]:
                             if lastTeamBoolean:
                                 table.add_empty_row()
@@ -762,13 +776,13 @@ try:
 
                 if game_state == "MENUS":
                     table.set_runtime_col_flag('Party', False)
-                    table.set_runtime_col_flag('Agent',False)
-                    table.set_runtime_col_flag('Skin',False)
+                    table.set_runtime_col_flag('Agent', False)
+                    table.set_runtime_col_flag('Skin', False)
 
                 if game_state == "INGAME":
                     if isRange:
                         table.set_runtime_col_flag('Party', False)
-                        table.set_runtime_col_flag('Agent',False)
+                        table.set_runtime_col_flag('Agent', False)
 
                 # We don't to show the RR column if the "aggregate_rank_rr" feature flag is True.
                 table.set_runtime_col_flag('RR', cfg.table.get("rr") and not cfg.get_feature_flag("aggregate_rank_rr"))
