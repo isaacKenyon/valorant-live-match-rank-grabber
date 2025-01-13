@@ -1,3 +1,4 @@
+
 <p align="center">
     <a href="https://github.com/isaacKenyon/valorant-rank-yoinker/">
         <img src="assets/Logo.png" alt="Logo" width="160" height="160">
@@ -20,8 +21,9 @@
     
 ## About The Project
 
- ![Screenshot](assets/Example.png)
- ![Skin Showcase Image](assets/SkinShowcase.png)
+ ![Terminal Example](assets/Example.png)
+ ![Website Overview Image](assets/WebsiteOverview.png)
+ ![Website Player Specific Image](assets/WebsiteOverview.png)
 
 |Their Queue|Current Skin|Current Rank|Rank Rating|Peak Rank|Account Level|
 |:---:|:---:|:---:|:---:|:---:|:---:|
